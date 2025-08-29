@@ -18,10 +18,9 @@ class GeminiClient:
         self.api_key = config.api_key
         self.client = genai.Client(api_key=self.api_key)        
         self.system_instruction = "You are an expert code reviewer and linter. Analyze the following multi-language codebase provided below. Identify high-level, cross-file patterns, potential areas for refactoring, and inconsistencies in coding style or logic. Do not suggest trivial fixes. Focus on architectural improvements or repeated code that could be abstracted. Provide 3-5 actionable suggestions. For each suggestion, specify the relevant file(s) and provide a clear explanation of the issue and your proposed improvement."
-        # Generation configuration for consistent responses
         self.generation_config = types.GenerateContentConfig(
             system_instruction=self.system_instruction,
-            temperature=0.3,  # Lower temperature for more focused analysis
+            temperature=0.3,
             )
 
     def get_suggestions(self, code_context: str) -> str:
@@ -38,7 +37,7 @@ class GeminiClient:
             Exception: If API call fails
         """
         if not code_context.strip():
-            return "❌ No code content provided for analysis."
+            return "No code content provided for analysis."
 
         try:
             print("🤖 Analyzing codebase with Gemini AI...")
@@ -53,22 +52,22 @@ class GeminiClient:
             )
 
             if response and response.text:
-                print("✅ Analysis complete!")
+                print("Analysis complete!")
                 return self._format_response(response.text)
             else:
-                return "❌ No response received from Gemini API."
+                return "No response received from Gemini API."
 
         except Exception as e:
-            error_msg = f"❌ Error communicating with Gemini API: {str(e)}"
+            error_msg = f"Error communicating with Gemini API: {str(e)}"
             print(error_msg)
 
             # Provide helpful troubleshooting information
             if "API_KEY" in str(e).upper():
-                error_msg += "\n💡 Make sure your GEMINI_API_KEY is set correctly in the .env file."
+                error_msg += "\nMake sure your GEMINI_API_KEY is set correctly in the .env file."
             elif "quota" in str(e).lower():
-                error_msg += "\n💡 You may have exceeded your API quota. Check your Google AI Studio dashboard."
+                error_msg += "\nYou may have exceeded your API quota. Check your Google AI Studio dashboard."
             elif "network" in str(e).lower():
-                error_msg += "\n💡 Check your internet connection and try again."
+                error_msg += "\nCheck your internet connection and try again."
 
             return error_msg
 
@@ -97,7 +96,7 @@ class GeminiClient:
         """
         # Add header decoration
         formatted_response = "\n" + "="*80 + "\n"
-        formatted_response += "🎯 CODE ANALYSIS RESULTS\n"
+        formatted_response += "CODE ANALYSIS RESULTS\n"
         formatted_response += "="*80 + "\n\n"
 
         # Clean up the response text
@@ -105,7 +104,7 @@ class GeminiClient:
 
         # Add footer
         formatted_response += "\n\n" + "="*80 + "\n"
-        formatted_response += "✨ Analysis powered by Google Gemini AI\n"
+        formatted_response += "Analysis powered by Google Gemini AI\n"
         formatted_response += "="*80 + "\n"
 
         return formatted_response

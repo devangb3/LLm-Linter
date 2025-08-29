@@ -84,14 +84,14 @@ class CodeAnalyzer:
         if not directory.is_dir():
             raise ValueError(f"'{directory_path}' is not a directory")
 
-        print(f"🔍 Scanning directory: {directory_path}")
-        print(f"📁 Supported file types: {', '.join(sorted(self.SUPPORTED_EXTENSIONS))}")
+        print(f"Scanning directory: {directory_path}")
+        print(f"Supported file types: {', '.join(sorted(self.SUPPORTED_EXTENSIONS))}")
 
         # Find all source files
         source_files = self._find_source_files(directory)
 
         if not source_files:
-            print("⚠️  No source files found in the specified directory")
+            print("No source files found in the specified directory")
             return ""
 
         print(f"📄 Found {len(source_files)} source files")
@@ -155,7 +155,7 @@ class CodeAnalyzer:
                     self.total_size += len(content.encode('utf-8'))
 
             except (PermissionError, UnicodeDecodeError) as e:
-                print(f"⚠️  Skipping {file_path}: {e}")
+                print(f"Skipping {file_path}: {e}")
                 continue
 
         return "\n".join(aggregated_parts)
@@ -178,9 +178,8 @@ class CodeAnalyzer:
             with open(file_path, 'r', encoding='utf-8') as f:
                 content = f.read()
 
-            # Skip files that are too large (over 1MB) to avoid token limits
             if len(content.encode('utf-8')) > 1024 * 1024:
-                print(f"⚠️  Skipping large file: {file_path} (>1MB)")
+                print(f"Skipping large file: {file_path} (>1MB)")
                 return ""
 
             return content

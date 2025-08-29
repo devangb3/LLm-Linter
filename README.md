@@ -1,8 +1,8 @@
-# 🤖 Coding Assistant
+# Coding Assistant
 
 An AI-powered command-line tool that analyzes your codebase using Google's Gemini AI to provide actionable suggestions for improvements, refactoring opportunities, and architectural enhancements.
 
-## ✨ Features
+## Features
 
 - **Multi-language Support**: Analyzes Python, JavaScript, TypeScript, Go, Java, C#, C++, C, Ruby, Rust, PHP, Kotlin, Swift, and Scala
 - **Cross-file Analysis**: Identifies patterns and relationships across your entire codebase
@@ -11,7 +11,7 @@ An AI-powered command-line tool that analyzes your codebase using Google's Gemin
 - **Command-line Interface**: Simple, fast CLI tool with no GUI dependencies
 - **Smart Filtering**: Automatically ignores common directories and binary files
 
-## 🚀 Quick Start
+## Quick Start
 
 ### 1. Prerequisites
 
@@ -70,7 +70,7 @@ The tool scans your directory for source code files with these extensions:
 - `.swift` - Swift
 - `.scala` - Scala
 
-## 🎯 Analysis Focus
+## Analysis Focus
 
 The AI analyzes your codebase for:
 
@@ -82,7 +82,7 @@ The AI analyzes your codebase for:
 
 **Note**: The tool focuses on architectural and design improvements, not trivial fixes like formatting or minor optimizations.
 
-## 📁 Directory Structure
+## Directory Structure
 
 ```
 coding-assistant/
@@ -119,29 +119,29 @@ The tool automatically ignores these common directories:
 
 ### API Key Issues
 ```bash
-❌ GEMINI_API_KEY not found in environment variables
+GEMINI_API_KEY not found in environment variables
 ```
 **Solution**: Make sure your `.env` file exists and contains a valid API key from Google AI Studio.
 
 ### Network Issues
 ```bash
-❌ Error communicating with Gemini API
+Error communicating with Gemini API
 ```
 **Solution**: Check your internet connection and API quota limits in Google AI Studio.
 
 ### No Files Found
 ```bash
-⚠️ No source files found in the specified directory
+No source files found in the specified directory
 ```
 **Solution**: Verify the path contains supported source code files and check that they're not in ignored directories.
 
 ### Permission Errors
 ```bash
-❌ Error: Permission denied
+Error: Permission denied
 ```
 **Solution**: Make sure you have read access to the target directory and files.
 
-## 💾 Output Files
+## Output Files
 
 The tool automatically saves analysis results to timestamped files in the `analysis_output/` directory:
 
@@ -183,22 +183,22 @@ cd analysis_output && ls -t | tail -n +11 | xargs rm -f
 ║                      AI-Powered Code Analysis Tool                         ║
 ╚══════════════════════════════════════════════════════════════════════════════╝
 
-🔧 Validating environment...
-✅ API key found
-🔗 Testing API connection...
-✅ API connection successful
+Validating environment...
+API key found
+Testing API connection...
+API connection successful
 
-📂 Target directory: /path/to/project
-🔍 Scanning directory: /path/to/project
-📁 Supported file types: .py, .js, .ts, .go, .java, .cs, .cpp, .c, .rb, .rs
-📄 Found 25 source files
+Target directory: /path/to/project
+Scanning directory: /path/to/project
+Supported file types: .py, .js, .ts, .go, .java, .cs, .cpp, .c, .rb, .rs
+Found 25 source files
 
-🤖 Analyzing codebase with Gemini AI...
-⏳ This may take a moment depending on codebase size...
-✅ Analysis complete!
+Analyzing codebase with Gemini AI...
+This may take a moment depending on codebase size...
+Analysis complete!
 
 ================================================================================
-🎯 CODE ANALYSIS RESULTS
+CODE ANALYSIS RESULTS
 ================================================================================
 
 1. **Database Connection Abstraction**
@@ -209,9 +209,6 @@ cd analysis_output && ls -t | tail -n +11 | xargs rm -f
 
 [Additional suggestions...]
 
-================================================================================
-✨ Analysis powered by Google Gemini AI
-================================================================================
 ```
 
 ## Fututre Improvements
@@ -222,17 +219,3 @@ This is an MVP implementation. Potential enhancements:
 - Output formatting options (JSON, HTML)
 - Integration with CI/CD pipelines
 - Caching of analysis results
-
-
-## ⚠️ Disclaimer
-
-- This tool sends your code to Google's Gemini AI for analysis
-- Review the AI suggestions carefully before implementing changes
-- The tool focuses on high-level architectural suggestions, not security audits
-- Always backup your code before making significant changes based on AI suggestions
-
-## 🔗 Links
-
-- [Google AI Studio](https://aistudio.google.com/) - Get your Gemini API key
-- [Gemini API Documentation](https://ai.google.dev/docs) - Learn more about the Gemini API
-- [Python dotenv](https://pypi.org/project/python-dotenv/) - Environment variable management

@@ -52,7 +52,7 @@ class CodingAssistant:
             code_context = self.analyzer.analyze_codebase(directory_path)
 
             if not code_context:
-                print("❌ No analyzable code found. Please check the directory path.")
+                print("No analyzable code found. Please check the directory path.")
                 return 1
 
             suggestions = self.gemini_client.get_suggestions(code_context)
@@ -64,10 +64,10 @@ class CodingAssistant:
             return 0
 
         except KeyboardInterrupt:
-            print("\n\n⚠️  Analysis interrupted by user.")
+            print("\n\nAnalysis interrupted by user.")
             return 1
         except Exception as e:
-            print(f"\n❌ Unexpected error: {e}")
+            print(f"\nUnexpected error: {e}")
             return 1
 
     def _print_header(self):
@@ -92,20 +92,18 @@ class CodingAssistant:
         """
         print("🔧 Validating environment...")
 
-        # Check API key
         try:
-            config.api_key  # This will raise ValueError if not set
-            print("✅ API key found")
+            config.api_key
+            print("API key found")
         except ValueError as e:
-            print(f"❌ {e}")
+            print(f"{e}")
             return False
 
-        # Test API connectivity
-        print("🔗 Testing API connection...")
+        print("Testing API connection...")
         if self.gemini_client.validate_api_key():
-            print("✅ API connection successful")
+            print("API connection successful")
         else:
-            print("❌ API connection failed. Please check your API key.")
+            print("API connection failed. Please check your API key.")
             return False
 
         return True
@@ -193,30 +191,27 @@ def main() -> int:
         int: Exit code
     """
     try:
-        # Parse command-line arguments
         args = parse_arguments()
 
-        # Validate the provided path
         directory_path = Path(args.path).resolve()
 
         if not directory_path.exists():
-            print(f"❌ Error: Directory '{args.path}' does not exist.")
-            print(f"💡 Absolute path: {directory_path}")
+            print(f"Error: Directory '{args.path}' does not exist.")
+            print(f"Absolute path: {directory_path}")
             return 1
 
         if not directory_path.is_dir():
-            print(f"❌ Error: '{args.path}' is not a directory.")
+            print(f"Error: '{args.path}' is not a directory.")
             return 1
 
-        # Run the analysis
         assistant = CodingAssistant()
         return assistant.run(str(directory_path))
 
     except KeyboardInterrupt:
-        print("\n\n👋 Goodbye!")
+        print("\n\nGoodbye!")
         return 0
     except Exception as e:
-        print(f"❌ Fatal error: {e}")
+        print(f"Fatal error: {e}")
         return 1
 
 
