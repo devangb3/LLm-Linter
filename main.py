@@ -48,7 +48,7 @@ class CodingAssistant:
             if not self._validate_environment():
                 return 1
 
-            print(f"\n📂 Target directory: {directory_path}")
+            print(f"\nTarget directory: {directory_path}")
             code_context = self.analyzer.analyze_codebase(directory_path)
 
             if not code_context:
