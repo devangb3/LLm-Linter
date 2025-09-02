@@ -5,3 +5,4 @@ analysis_output/
 *.pyc
 __pycache__/
 .vscode/
+node_modules/

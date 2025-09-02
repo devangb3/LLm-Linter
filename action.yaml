@@ -1,0 +1,12 @@
+name: "First github action"
+description: "Say hello after each pull request"
+author: "Rafael"
+
+inputs:
+  GITHUB_TOKEN:
+    description: "Github token"
+    required: true
+
+runs:
+  using: "node12"
+  main: "dist/index.js"
