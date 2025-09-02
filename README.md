@@ -1,7 +1,7 @@
 # Coding Assistant
 
 An AI-powered command-line tool that analyzes your codebase using Google's Gemini AI to provide actionable suggestions for improvements, refactoring opportunities, and architectural enhancements.
-
+Add new change
 ## Features
 
 - **Multi-language Support**: Analyzes Python, JavaScript, TypeScript, Go, Java, C#, C++, C, Ruby, Rust, PHP, Kotlin, Swift, and Scala
