@@ -31860,18 +31860,37 @@ async function run() {
         issue_number: github.context.payload.pull_request.number
       };
     } else if (github.context.eventName === 'push') {
-      // For push events, create a commit comment instead
+      // For push events, create an issue to track the action
       const sha = github.context.sha;
-      console.log('Creating commit comment for SHA:', sha);
+      const branch = github.context.ref.replace('refs/heads/', '');
+      const commitMessage = github.context.payload.head_commit?.message || 'No commit message';
       
-      const response = await octokit.rest.repos.createCommitComment({
+      console.log('Creating issue for push event. SHA:', sha, 'Branch:', branch);
+      
+      const issueTitle = `🚀 Action triggered by push to ${branch}`;
+      const issueBody = `
+## Push Event Summary
+- **Branch**: \`${branch}\`
+- **Commit**: \`${sha.substring(0, 7)}\`
+- **Message**: ${commitMessage}
+- **Author**: ${github.context.payload.head_commit?.author?.name || 'Unknown'}
+- **Timestamp**: ${new Date().toISOString()}
+
+### Action Details
+This issue was automatically created by the GitHub Action to track the push event.
+
+[View Commit](${github.context.payload.head_commit?.url || '#'})
+      `;
+      
+      const response = await octokit.rest.issues.create({
         owner,
         repo,
-        commit_sha: sha,
-        body: `🎉 Action triggered by push! Commit: ${sha.substring(0, 7)}`
+        title: issueTitle,
+        body: issueBody,
+        labels: ['automated', 'push-event']
       });
       
-      console.log('Commit comment created:', response.data.html_url);
+      console.log('Issue created:', response.data.html_url);
       core.setOutput('comment-url', response.data.html_url);
       return;
     } else if (github.context.eventName === 'issues') {
@@ -31889,7 +31908,7 @@ async function run() {
         owner,
         repo,
         issue_number: commentTarget.issue_number,
-        body: `🚀 Hello from GitHub Action! Event: ${github.context.eventName}`
+        body: `Hello from GitHub Action! Event: ${github.context.eventName}`
       });
       
       console.log('Comment created:', response.data.html_url);
