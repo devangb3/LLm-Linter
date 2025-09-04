@@ -16,7 +16,6 @@ async function run() {
     console.log('Repo:', owner, repo);
     console.log('Event name:', github.context.eventName);
     
-    // Handle different event types
     let commentTarget = null;
     
     if (github.context.eventName === 'pull_request') {
@@ -24,21 +23,20 @@ async function run() {
         issue_number: github.context.payload.pull_request.number
       };
     } else if (github.context.eventName === 'push') {
-      // For push events, create an issue to track the action
       const sha = github.context.sha;
       const branch = github.context.ref.replace('refs/heads/', '');
       const commitMessage = github.context.payload.head_commit?.message || 'No commit message';
       
       console.log('Creating issue for push event. SHA:', sha, 'Branch:', branch);
       
-      const issueTitle = `🚀 Action triggered by push to ${branch}`;
+      const issueTitle = `Action triggered by push to ${branch}`;
       const issueBody = `
-## Push Event Summary
-- **Branch**: \`${branch}\`
-- **Commit**: \`${sha.substring(0, 7)}\`
-- **Message**: ${commitMessage}
-- **Author**: ${github.context.payload.head_commit?.author?.name || 'Unknown'}
-- **Timestamp**: ${new Date().toISOString()}
+                  ## Push Event Summary
+                  - **Branch**: \`${branch}\`
+                  - **Commit**: \`${sha.substring(0, 7)}\`
+                  - **Message**: ${commitMessage}
+                  - **Author**: ${github.context.payload.head_commit?.author?.name || 'Unknown'}
+                  - **Timestamp**: ${new Date().toISOString()}
 
 ### Action Details
 This issue was automatically created by the GitHub Action to track the push event.
